@@ -13,7 +13,7 @@ ENV RAVEN_EverybodyAsAdmin true
 # Update container
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-	&& apt-get install bzip2 libunwind8 libicu55 libcurl3 ca-certificates -y
+    && apt-get install bzip2 libunwind8 libicu55 libcurl3 ca-certificates -y
 
 # RavenDB	
 EXPOSE ${RAVEN_Port} ${RAVEN_TCP_Port}
