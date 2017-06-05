@@ -24,7 +24,7 @@ ADD http://hibernatingrhinos.com/downloads/RavenDB%20for%20Ubuntu%2016.04%20x64/
 RUN cd /home \
     && mkdir Raven \
     && tar xf Raven.tar.bz2 -C Raven \
-    && rm /home/Raven.tar.bz2
+    && rm /home/Raven.tar.bz2 \
     && apt-get remove bzip2 -y \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
