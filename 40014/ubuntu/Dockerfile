@@ -8,7 +8,7 @@ ENV RAVEN_Url "http://0.0.0.0:8080"
 ENV RAVEN_TCP_Port 38888
 ENV RAVEN_TCP_Url "tcp://0.0.0.0:38888"
 ENV RAVEN_DataDir /var/lib/ravendb/
-ENV RAVEN_EverybodyAsAdmin true
+ENV RAVEN_AllowAnonymous true
 
 # Update container
 RUN apt-get update \
@@ -34,7 +34,7 @@ WORKDIR /home/Raven/Server
 CMD ./Raven.Server \
         /Raven/ServerUrl=${RAVEN_Url} \
         /Raven/ServerUrl/Tcp=${RAVEN_TCP_Url} \
-        /Raven/AllowEverybodyToAccessTheServerAsAdmin=${RAVEN_EverybodyAsAdmin} \
+        /Raven/AllowAnonymousUserToAccessTheServer=${RAVEN_AllowAnonymous} \
         /Raven/DataDir=${RAVEN_DataDir} \
         --daemon \
         --print-id

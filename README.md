@@ -12,26 +12,28 @@ This repo contains the base dockerfiles for building RavenDB(Server) Images.
 |4.0.0-alpha|40013 |**40013**, **4.0.0-alpha-40013**|ubuntu:xenial|[RavenDB.Docker](https://github.com/xinix00/ravendb.Docker/tree/master/40013/ubuntu "40013")|
 
 # How to use this image
-`docker run -p 8080:8080 xinix00/ravendb.docker`
+`docker run -p 8080:8080 -p 38888:38888 xinix00/ravendb.docker`
 This will store the workspace in `/var/lib/ravendb` all RavenDB data is contained within that workspace. **RavenDB will store the system and subsequent database(s) there.**
 
 >**Note:** You will probably want to make that a persistent volume (recommended).
 
 
-`docker run -p 8080:8080 -v /your/home:/var/lib/ravendb xinix00/ravendb.docker`
+`docker run -p 8080:8080 -p 38888:38888 -v /your/home:/var/lib/ravendb xinix00/ravendb.docker`
 This will store the RavenDB data in `/your/home` on the host.
 
 ## You can also use a volume container
-`docker run --name myravendb -p 8080:8080 -v /var/lib/ravendb xinix00/ravendb.docker`
+`docker run --name myravendb -p 8080:8080 -p 38888:38888 -v /var/lib/ravendb xinix00/ravendb.docker`
 Then myravendb container has the volume (please do read about docker volume handling to find out more).
 
 ## Environment Variables
-You can use environment properties to manipulate the container (Example: `-e RAVEN_ServerUrl='http://0.0.0.0:9090'`)
+You can use environment properties to manipulate the container (Example: `-e RAVEN_Url='http://0.0.0.0:9090'`)
 
 * RAVEN_Port: The port to use when creating the http listener.
-* RAVEN_ServerUrl: The URLs which the server should listen to.
+* RAVEN_Url: The URLs which the server should listen to.
+* RAVEN_TCP_Port: The TCP port to use when creating the tcp listener.
+* RAVEN_TCP_Url: The TCP URL which the server should listen to.
 * RAVEN_DataDir: The directory for the RavenDB resource.
-* RAVEN_EverybodyAsAdmin: When set to true, exposes the database to the world.
+* RAVEN_AllowAnonymous: Grant administrative access to the server for anonymous
 
 # User Feedback
 
