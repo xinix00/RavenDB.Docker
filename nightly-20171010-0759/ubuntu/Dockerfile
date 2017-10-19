@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-ADD http://hibernatingrhinos.com/downloads/RavenDB%20for%20Ubuntu%2016.04%20x64/20171010-0759-Nightly /opt/RavenDB.tar.bz2
+ADD http://hibernatingrhinos.com/downloads/RavenDB%20for%20Linux%20x64/20171019-0400-Nightly /opt/RavenDB.tar.bz2
 
 RUN apt-get update \
     && apt-get install -y \
