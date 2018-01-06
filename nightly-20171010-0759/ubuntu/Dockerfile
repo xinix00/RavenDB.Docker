@@ -1,10 +1,10 @@
 FROM ubuntu:16.04
 
-ADD http://hibernatingrhinos.com/downloads/RavenDB%20for%20Linux%20x64/20171115-0501-Nightly /opt/RavenDB.tar.bz2
+ADD https://hibernatingrhinos.com/downloads/RavenDB%20for%20Linux%20x64/20180105-0500-Nightly /opt/RavenDB.tar.bz2
 
 RUN apt-get update \
     && apt-get install -y \
-    && apt-get install --no-install-recommends curl bzip2 libunwind8 libicu55 libcurl3 ca-certificates -y \
+    && apt-get install --no-install-recommends curl bzip2 libunwind8 libicu55 libcurl3 ca-certificates jq -y \
     && cd /opt \
     && tar xjvf RavenDB.tar.bz2 \
     && rm RavenDB.tar.bz2 \
@@ -12,16 +12,17 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
-ENV DATA_DIR=APPDRIVE:/databases CUSTOM_CONFIG_FILE='' PUBLIC_SERVER_URL='' PUBLIC_TCP_SERVER_URL='' CERTIFICATE_PATH='' CERTIFICATE_PASSWORD='' CERTIFICATE_PASSWORD_FILE='' UNSECURED_ACCESS_ALLOWED='' LOGS_MODE='' RAVEN_AUTO_INSTALL_CA='true'
+ENV RAVEN_ARGS='' RAVEN_Setup_Mode='Initial' RAVEN_DataDir='RavenData' RAVEN_ServerUrl_Tcp='38888' RAVEN_AUTO_INSTALL_CA='true' RAVEN_IN_DOCKER='true'
+
+EXPOSE 8080 38888 161
 
 COPY run-raven.sh healthcheck.sh /opt/RavenDB/
+#COPY settings.json /opt/RavenDB/Server
 
 HEALTHCHECK --start-period=60s CMD /opt/RavenDB/healthcheck.sh
 
 WORKDIR /opt/RavenDB/Server
 
-VOLUME /databases /opt/RavenDB/cert /opt/RavenDB/secrets
-
-EXPOSE 8080 38888 161
+VOLUME /opt/RavenDB/Server/RavenData /opt/RavenDB/cert /opt/RavenDB/secrets
 
 CMD /opt/RavenDB/run-raven.sh
