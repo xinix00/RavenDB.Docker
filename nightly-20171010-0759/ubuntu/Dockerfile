@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-ADD https://hibernatingrhinos.com/downloads/RavenDB%20for%20Linux%20x64/20180105-0500-Nightly /opt/RavenDB.tar.bz2
+ADD https://hibernatingrhinos.com/downloads/RavenDB%20for%20Linux%20x64/20180110-0501-Nightly /opt/RavenDB.tar.bz2
 
 RUN apt-get update \
     && apt-get install -y \
@@ -18,6 +18,7 @@ EXPOSE 8080 38888 161
 
 COPY run-raven.sh healthcheck.sh /opt/RavenDB/
 #COPY settings.json /opt/RavenDB/Server
+COPY Raven.Server.runtimeconfig.json /opt/RavenDB/Server/
 
 HEALTHCHECK --start-period=60s CMD /opt/RavenDB/healthcheck.sh
 
